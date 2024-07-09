@@ -1,0 +1,19 @@
+
+SCHEMA >
+    `eventID` String `json:$.eventID`,
+    `eventName` LowCardinality(String) `json:$.eventName`,
+    `eventSource` LowCardinality(String) `json:$.eventSource`,
+    `eventSourceARN` LowCardinality(String) `json:$.eventSourceARN`,
+    `eventVersion` Float32 `json:$.eventVersion`,
+    `awsRegion` LowCardinality(String) `json:$.awsRegion`,
+    `ApproximateCreationDateTime` Int64 `json:$.ApproximateCreationDateTime`,
+    `SequenceNumber` String `json:$.SequenceNumber`,
+    `SizeBytes` UInt32 `json:$.SizeBytes`,
+    `StreamViewType` LowCardinality(String) `json:$.StreamViewType`,
+    `Keys` String `json:$.Keys`,
+    `NewImage` String `json:$.NewImage`,
+    `OldImage` String `json:$.OldImage`,
+    `key_transaction_id` String `json:$.key_transaction_id` DEFAULT ''
+
+ENGINE "MergeTree"
+ENGINE_SORTING_KEY "key_transaction_id, ApproximateCreationDateTime"

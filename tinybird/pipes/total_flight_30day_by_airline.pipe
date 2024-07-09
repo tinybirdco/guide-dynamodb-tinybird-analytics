@@ -1,0 +1,27 @@
+TOKEN "dashboard_read_token" READ
+
+NODE extract_fields
+SQL >
+
+    %
+    SELECT 
+      JSONExtract(event, 'airline', 'String')  as airline
+    FROM latest_events_view
+    WHERE airline == {{ String(airline, 'GAS', description="This is a description", required=True) }}
+
+
+
+NODE agg
+SQL >
+
+    SELECT airline, count() as flights FROM extract_fields
+    GROUP BY airline
+
+
+
+NODE endpoint
+SQL >
+
+    SELECT airline, flights FROM agg
+
+

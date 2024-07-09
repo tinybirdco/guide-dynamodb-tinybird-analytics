@@ -1,0 +1,9 @@
+NODE mv
+SQL >
+
+    SELECT * FROM ddb_tinybird_flights
+
+TYPE materialized
+DATASOURCE ddb_tinybird_flights_deduped
+
+
