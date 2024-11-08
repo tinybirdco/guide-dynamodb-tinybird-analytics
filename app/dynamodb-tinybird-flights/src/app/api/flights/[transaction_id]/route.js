@@ -9,10 +9,8 @@ const ddb_table_region = process.env.DDB_TABLE_REGION;
 const client = new DynamoDBClient({ region: ddb_table_region });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export async function GET(
-    request,
-    { params }
-) {
+export async function GET(request, props) {
+    const params = await props.params;
     const transaction_id = params.transaction_id
 
     const command = new GetCommand({
@@ -26,10 +24,8 @@ export async function GET(
     return new Response(JSON.stringify(response.Item));
 }
 
-export async function DELETE(
-    request,
-    { params }
-) {
+export async function DELETE(request, props) {
+    const params = await props.params;
     const transaction_id = params.transaction_id
 
     const command = new DeleteCommand({
