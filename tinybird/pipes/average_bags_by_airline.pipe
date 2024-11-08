@@ -1,28 +1,12 @@
 TOKEN "dashboard_read_token" READ
 
-NODE extract_fields
-SQL >
-
-    %
-    SELECT 
-      JSONExtract(event, 'airline', 'String')  as airline,
-      JSONExtract(event, 'extra_bags', 'Int8') as bags 
-    FROM latest_events_view
-    WHERE airline == {{ String(airline, 'GAS', description="This is a description", required=True) }}
-
-
-
-NODE agg
-SQL >
-
-    SELECT airline, round(avg(bags), 3) as avg_bags FROM extract_fields
-    GROUP BY airline
-
-
-
 NODE endpoint
 SQL >
 
-    SELECT airline, avg_bags FROM agg
+    %
+    SELECT airline, round(avg(extra_bags), 3) as avg_bags
+    FROM ddb_flights
+    WHERE airline == {{ String(airline, 'GAS', description="This is a description", required=True) }}
+    GROUP BY airline
 
 

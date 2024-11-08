@@ -1,9 +1,0 @@
-TOKEN "finalise_view_endpoint_read_1287" READ
-
-NODE final
-SQL >
-
-    SELECT NewImage as event FROM ddb_tinybird_flights_deduped FINAL
-    WHERE eventName != 'REMOVE'
-
-

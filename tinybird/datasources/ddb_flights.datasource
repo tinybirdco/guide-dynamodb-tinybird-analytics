@@ -1,0 +1,26 @@
+
+SCHEMA >
+    `age` Int16 `json:$.Item.age`,
+    `airline` String `json:$.Item.airline`,
+    `email` String `json:$.Item.email`,
+    `extra_bags` Int16 `json:$.Item.extra_bags`,
+    `flight_from` String `json:$.Item.flight_from`,
+    `flight_to` String `json:$.Item.flight_to`,
+    `meal_choice` String `json:$.Item.meal_choice`,
+    `name` String `json:$.Item.name`,
+    `passport_number` Int32 `json:$.Item.passport_number`,
+    `priority_boarding` UInt8 `json:$.Item.priority_boarding`,
+    `timestamp` DateTime64(3) `json:$.Item.timestamp`,
+    `transaction_id` String `json:$.Item.transaction_id`,
+    `_old_record` Nullable(String) `json:$.OldImage`
+
+ENGINE "ReplacingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(toDateTime64(_timestamp, 3))"
+ENGINE_SORTING_KEY "airline, transaction_id"
+ENGINE_VER "_timestamp"
+ENGINE_IS_DELETED "_is_deleted"
+
+IMPORT_SERVICE 'dynamodb'
+IMPORT_CONNECTION_NAME 'ddb_tinybird'
+IMPORT_TABLE_ARN 'arn:aws:dynamodb:eu-central-1:xxxxxxxxxxxx:table/tinybird_flights'
+IMPORT_EXPORT_BUCKET 'tinybird-flights'

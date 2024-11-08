@@ -1,30 +1,13 @@
 TOKEN "dashboard_read_token" READ
 
-NODE filter
-SQL >
-
-    %
-    SELECT
-        JSONExtract(event, 'airline', 'String') as airline,
-        parseDateTimeBestEffort(JSONExtract(event, 'timestamp', 'String')) as timestamp
-    FROM latest_events_view
-    WHERE airline == {{ String(airline, 'GAS', description="This is a description", required=True) }}
-
-
-
-NODE agg
-SQL >
-
-    SELECT airline, count() AS total, toDate(toStartOfDay(timestamp)) AS day
-    FROM filter
-    GROUP BY airline, day 
-    ORDER BY airline, day ASC
-
-
-
 NODE endpoint
 SQL >
 
-    SELECT * FROM agg
+    %
+    SELECT airline, count() AS total, toDate(toStartOfDay(timestamp)) AS day
+    FROM ddb_flights
+    WHERE airline == {{ String(airline, 'GAS', description="This is a description", required=True) }}
+    GROUP BY airline, day 
+    ORDER BY airline, day ASC
 
 
