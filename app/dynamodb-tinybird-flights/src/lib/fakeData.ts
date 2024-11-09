@@ -73,50 +73,79 @@ const airlineWeights = [
     { weight: 15, value: "Red Balloon" },
 ];
 
-export const fakeData = function (user?: User) {
-    if (user) {
-        const event_time = new Date().toISOString();
-        const transaction_id = faker.string.ulid({ refDate: event_time });
-        return {
-            "PK": "COMPANY#" + user.company,
-            "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
-            "company": user.company,
-            "email": user.email,
-            "transaction_id": transaction_id,
-            "name": user.name,
-            "timestamp": event_time,
-            "age": user.age,
-            "passport_number": user.passport_number,
-            "flight_from": faker.airline.airport().iataCode,
-            "flight_to": faker.airline.airport().iataCode,
-            "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
-            "priority_boarding": faker.datatype.boolean(),
-            "meal_choice": user.meal_choice,
-            "airline": faker.helpers.weightedArrayElement(airlineWeights),
-            "cost": faker.number.int({ min: 100, max: 1000 })
-        }
+export const fakeData = function () {
+    const event_time = faker.date.recent({ days: 30 });
+    const company = faker.company.name();
+    const email = faker.internet.email();
+    const transaction_id = faker.string.ulid({ refDate: event_time });
+    return {
+        "PK": "COMPANY#" + company,
+        "SK": "EMAIL#" + email + "#TXID#" + transaction_id,
+        "company": company,
+        "email": email,
+        "transaction_id": transaction_id,
+        "timestamp": event_time,
+        "name": faker.person.fullName(),
+        "age": faker.number.int({ min: 18, max: 99 }),
+        "passport_number": faker.number.int({ min: 3456789, max: 9876543 }),
+        "flight_from": faker.airline.airport().iataCode,
+        "flight_to": faker.airline.airport().iataCode,
+        "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
+        "priority_boarding": faker.datatype.boolean(),
+        "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
+        "airline": faker.helpers.weightedArrayElement(airlineWeights),
+        "cost": faker.number.int({ min: 100, max: 1000 })
+    }
+}
+
+export const fakeUserData = function (user: User) {
+    const event_time = new Date().toISOString();
+    const transaction_id = faker.string.ulid({ refDate: event_time });
+    return {
+        "PK": "COMPANY#" + user.company,
+        "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
+        "company": user.company,
+        "email": user.email,
+        "transaction_id": transaction_id,
+        "name": user.name,
+        "timestamp": event_time,
+        "age": user.age,
+        "passport_number": user.passport_number,
+        "flight_from": faker.airline.airport().iataCode,
+        "flight_to": faker.airline.airport().iataCode,
+        "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
+        "priority_boarding": faker.datatype.boolean(),
+        "meal_choice": user.meal_choice,
+        "airline": faker.helpers.weightedArrayElement(airlineWeights),
+        "cost": faker.number.int({ min: 100, max: 1000 })
+    }
+}
+
+export const fakeCompanyData = function (now: boolean) {
+    let event_time: string;
+    if (now) {
+        event_time = new Date().toISOString();
     } else {
-        const event_time = faker.date.recent({ days: 30 });
-        const company = faker.company.name();
-        const email = faker.internet.email();
-        const transaction_id = faker.string.ulid({ refDate: event_time });
-        return {
-            "PK": "COMPANY#" + company,
-            "SK": "EMAIL#" + email + "#TXID#" + transaction_id,
-            "company": company,
-            "email": email,
-            "transaction_id": transaction_id,
-            "timestamp": event_time,
-            "name": faker.person.fullName(),
-            "age": faker.number.int({ min: 18, max: 99 }),
-            "passport_number": faker.number.int({ min: 3456789, max: 9876543 }),
-            "flight_from": faker.airline.airport().iataCode,
-            "flight_to": faker.airline.airport().iataCode,
-            "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
-            "priority_boarding": faker.datatype.boolean(),
-            "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
-            "airline": faker.helpers.weightedArrayElement(airlineWeights),
-            "cost": faker.number.int({ min: 100, max: 1000 })
-        }
+        event_time = faker.date.recent({ days: 30 }).toISOString();
+    }
+    const transaction_id = faker.string.ulid({ refDate: event_time });
+    const user = faker.helpers.arrayElement(users);
+    return {
+        "PK": "COMPANY#" + user.company,
+        "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
+        "company": user.company,
+        "email": user.email,
+        "transaction_id": transaction_id,
+        "name": user.name,
+        "timestamp": event_time,
+        "age": user.age,
+        "passport_number": user.passport_number,
+        "flight_from": faker.airline.airport().iataCode,
+        "flight_to": faker.airline.airport().iataCode,
+        "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
+        "priority_boarding": faker.datatype.boolean(),
+        "meal_choice": user.meal_choice,
+        "airline": faker.helpers.weightedArrayElement(airlineWeights),
+        "cost": faker.number.int({ min: 100, max: 1000 })
     }
 }

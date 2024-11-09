@@ -1,11 +1,11 @@
 "use client";
 import { SendHorizontal, Loader2, CheckCheck } from "lucide-react";
 import { Button } from "./ui/button";
-import { fakeUserData, User } from '@/lib/fakeData';
+import { fakeCompanyData, User } from '@/lib/fakeData';
 import { useState } from "react";
 
 
-export default function SendUserItem({ user, onUpdate }: { user: User, onUpdate: () => void }) {
+export default function SendCompanyItem({ user, onUpdate }: { user: User, onUpdate: () => void }) {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -18,7 +18,7 @@ export default function SendUserItem({ user, onUpdate }: { user: User, onUpdate:
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(fakeUserData(user)),
+            body: JSON.stringify(fakeCompanyData(false)),
         }).then((response) => {
             setLoading(false);
             setSuccess(true);
@@ -32,7 +32,7 @@ export default function SendUserItem({ user, onUpdate }: { user: User, onUpdate:
                 {loading && <Loader2 className="mr-2 h-4 w-4" />}
                 {success && <CheckCheck className="mr-2 h-4 w-4" />}
                 {!loading && !success && <SendHorizontal className="mr-2 h-4 w-4" />}
-                1 row from current user
+                1 row from Tinybird (past 30 days)
             </Button>
         </>
     );
