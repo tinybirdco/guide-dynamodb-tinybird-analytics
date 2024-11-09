@@ -22,11 +22,11 @@ export async function PUT(request: Request) {
         const response = await docClient.send(command);
         const statusCode = response.$metadata.httpStatusCode;
         if (statusCode !== 200) {
-            return new Response('Error', { status: statusCode ?? 500 });
+            return new Response(JSON.stringify({ response: 'Error' }), { status: statusCode ?? 500 });
         }
-        return new Response('Success', { status: statusCode });
+        return new Response(JSON.stringify({ response: 'Success' }), { status: statusCode });
     } catch (error) {
         console.error(error);
-        return new Response('Error', { status: 500 });
+        return new Response(JSON.stringify({ response: 'Error' }), { status: 500 });
     }
 }

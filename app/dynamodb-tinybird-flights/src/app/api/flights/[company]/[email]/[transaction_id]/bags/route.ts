@@ -9,7 +9,7 @@ const ddb_table_region = process.env.DDB_TABLE_REGION;
 const client = new DynamoDBClient({ region: ddb_table_region });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export async function POST(request, props) {
+export async function POST(request: Request, props: { params: { company: string, email: string, transaction_id: string } }) {
     const params = await props.params;
     const transaction_id = params.transaction_id
     const company = params.company
@@ -32,11 +32,11 @@ export async function POST(request, props) {
         const response = await docClient.send(command);
         const statusCode = response.$metadata.httpStatusCode;
         if (statusCode !== 200) {
-            return new Response('Error', { status: statusCode ?? 500 });
+            return new Response(JSON.stringify({ response: 'Error' }), { status: statusCode ?? 500 });
         }
-        return new Response('Success', { status: statusCode });
+        return new Response(JSON.stringify({ response: 'Success' }), { status: statusCode });
     } catch (error) {
         console.error(error);
-        return new Response('Error', { status: 500 });
+        return new Response(JSON.stringify({ response: 'Error' }), { status: 500 });
     }
 }
