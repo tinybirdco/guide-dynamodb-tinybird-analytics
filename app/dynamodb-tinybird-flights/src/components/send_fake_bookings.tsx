@@ -1,10 +1,11 @@
 "use client";
 import { SendHorizontal, Loader2, CheckCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fakeData } from '@/lib/fake_data';
+import { fakeCompanyData, fakeData, fakeUserData } from '@/lib/fake_data';
 import { useState } from "react";
+import { User, users } from "@/lib/users";
 
-export default function SendRandomItems({ amount }: { amount: number }) {
+export default function SendFakeBookings({ amount, type, now, user, button_text, callback }: { amount: number, type: "random" | "user" | "company", now: boolean, user?: User, button_text: string, callback: () => void }) {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -15,7 +16,13 @@ export default function SendRandomItems({ amount }: { amount: number }) {
 
         var items = [];
         for (let i = 0; i < amount; i++) {
-            items.push(fakeData());
+            if (type === "random") {
+                items.push(fakeData(now));
+            } else if (type === "user") {
+                items.push(fakeUserData(user ?? users[0], now));
+            } else if (type === "company") {
+                items.push(fakeCompanyData(now));
+            }
         }
 
         const response = fetch('/api/flights/bulk', {
@@ -27,6 +34,7 @@ export default function SendRandomItems({ amount }: { amount: number }) {
         }).then((response) => {
             setLoading(false);
             setSuccess(true);
+            callback();
         });
     };
 
@@ -36,7 +44,7 @@ export default function SendRandomItems({ amount }: { amount: number }) {
                 {loading && <Loader2 className="mr-2 h-4 w-4" />}
                 {success && <CheckCheck className="mr-2 h-4 w-4" />}
                 {!loading && !success && <SendHorizontal className="mr-2 h-4 w-4" />}
-                {amount} rows from random users
+                {button_text}
             </Button>
         </>
     );

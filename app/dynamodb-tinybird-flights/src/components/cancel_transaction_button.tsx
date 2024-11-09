@@ -7,8 +7,7 @@ export default function CancelTransactionButton({ transactionId, email, company,
         const response = fetch('/api/flights/' + company + '/' + email + '/' + transactionId, {
             method: 'DELETE',
         }).then(async (response) => {
-            const result = await response.json();
-            if (result == 200) {
+            if (response.status == 200) {
                 onEdit();
             }
         });

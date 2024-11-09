@@ -24,8 +24,7 @@ export function EditBagsDialog({ currentBags, transactionId, company, email, onE
             },
             body: JSON.stringify({ extra_bags: newBags }),
         }).then(async (response) => {
-            const result = await response.json();
-            if (result == 200) {
+            if (response.status == 200) {
                 onEdit();
             }
         });

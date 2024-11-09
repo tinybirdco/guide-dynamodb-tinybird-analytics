@@ -9,12 +9,11 @@ import { ChartTopTravellers } from './tinybird/top_travellers';
 
 const token = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_READ_TOKEN;
 
-export default function AdminDashboard({ user, tableKey }: { user: User, tableKey: number }) {
+export default function AdminDashboard({ user }: { user: User }) {
 
     const [totalFlights, setTotalFlights] = useState(0);
     const [flightCost, setFlightCost] = useState(0);
     const [uniqueTravellers, setUniqueTravellers] = useState(0);
-    const [topTravellers, setTopTravellers] = useState([]);
     const company = user.company;
 
     async function getTotalFlights() {
@@ -80,34 +79,11 @@ export default function AdminDashboard({ user, tableKey }: { user: User, tableKe
         }
     }
 
-    async function getTopTravellers() {
-        let url = new URL(`https://api.eu-central-1.aws.tinybird.co/v0/pipes/api_top_travellers.json`)
-
-        url.searchParams.append('company', company)
-
-        const result = await fetch(url, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(r => r.json())
-            .then(r => r)
-            .catch(e => e.toString())
-
-        if (!result.data) {
-            console.error(`there is a problem running the query: ${result}`);
-        } else {
-            setTopTravellers(result.data);
-        }
-    }
-
-
     useEffect(() => {
         getTotalFlights();
         getFlightCost();
         getUniqueTravellers();
-        getTopTravellers();
-    });
+    }, []);
 
     return (
         <>

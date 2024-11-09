@@ -34,8 +34,13 @@ const airlineWeights = [
     { weight: 15, value: "Red Balloon" },
 ];
 
-export const fakeData = function (): Booking {
-    const event_time = faker.date.recent({ days: 30 });
+export const fakeData = function (now: boolean): Booking {
+    let event_time: Date;
+    if (now) {
+        event_time = new Date();
+    } else {
+        event_time = faker.date.past();
+    }
     const company = faker.company.name();
     const email = faker.internet.email();
     const transaction_id = faker.string.ulid({ refDate: event_time });
@@ -60,8 +65,13 @@ export const fakeData = function (): Booking {
     return booking;
 }
 
-export const fakeUserData = function (user: User): Booking {
-    const event_time = new Date().toISOString();
+export const fakeUserData = function (user: User, now: boolean): Booking {
+    let event_time: Date;
+    if (now) {
+        event_time = new Date();
+    } else {
+        event_time = faker.date.past();
+    }
     const transaction_id = faker.string.ulid({ refDate: event_time });
     const booking: Booking = {
         "PK": "COMPANY#" + user.company,
@@ -70,7 +80,7 @@ export const fakeUserData = function (user: User): Booking {
         "email": user.email,
         "transaction_id": transaction_id,
         "name": user.name,
-        "timestamp": event_time,
+        "timestamp": event_time.toISOString(),
         "age": user.age,
         "passport_number": user.passport_number,
         "flight_from": faker.airline.airport().iataCode,
@@ -85,11 +95,11 @@ export const fakeUserData = function (user: User): Booking {
 }
 
 export const fakeCompanyData = function (now: boolean): Booking {
-    let event_time: string;
+    let event_time: Date;
     if (now) {
-        event_time = new Date().toISOString();
+        event_time = new Date();
     } else {
-        event_time = faker.date.recent({ days: 30 }).toISOString();
+        event_time = faker.date.past();
     }
     const transaction_id = faker.string.ulid({ refDate: event_time });
     const user = faker.helpers.arrayElement(users);
@@ -100,7 +110,7 @@ export const fakeCompanyData = function (now: boolean): Booking {
         "email": user.email,
         "transaction_id": transaction_id,
         "name": user.name,
-        "timestamp": event_time,
+        "timestamp": event_time.toISOString(),
         "age": user.age,
         "passport_number": user.passport_number,
         "flight_from": faker.airline.airport().iataCode,
