@@ -1,7 +1,7 @@
 "use client";
 import { SendHorizontal, Loader2, CheckCheck } from "lucide-react";
 import { Button } from "./ui/button";
-import * as fakeData from '@/lib/fakeData';
+import { fakeData } from '@/lib/fakeData';
 import { useState } from "react";
 
 export default function SendRandomItems({ amount }: { amount: number }) {
@@ -15,7 +15,7 @@ export default function SendRandomItems({ amount }: { amount: number }) {
 
         var items = [];
         for (let i = 0; i < amount; i++) {
-            items.push(fakeData.fakeData());
+            items.push(fakeData());
         }
 
         const response = fetch('/api/flights/bulk', {
