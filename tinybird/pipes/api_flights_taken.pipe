@@ -5,7 +5,7 @@ SQL >
 
     %
     SELECT count() AS total
-    FROM ddb_flights
+    FROM ddb_flights FINAL
     WHERE
         PK == concat(
             'COMPANY#',
