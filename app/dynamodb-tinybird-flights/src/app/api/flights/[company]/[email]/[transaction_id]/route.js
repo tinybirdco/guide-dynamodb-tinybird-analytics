@@ -18,8 +18,8 @@ export async function GET(request, props) {
     const command = new GetCommand({
         TableName: ddb_table_name,
         Key: {
-            company: company,
-            "email#transaction_id": email + "#" + transaction_id
+            PK: company,
+            SK: `EMAIL#${email}#TXID#${transaction_id}`
         }
     });
 
@@ -33,14 +33,19 @@ export async function DELETE(request, props) {
     const transaction_id = params.transaction_id
     const company = params.company
 
+    console.log(company, email, transaction_id);
+
     const command = new DeleteCommand({
         TableName: ddb_table_name,
         Key: {
-            "email#transaction_id": email + "#" + transaction_id,
-            company: company,
+            PK: `COMPANY#${company}`,
+            SK: `EMAIL#${email}#TXID#${transaction_id}`
         }
     });
 
+    console.log(command);
+
     const response = await docClient.send(command);
+    console.log(response.$metadata.httpStatusCode);
     return new Response(response.$metadata.httpStatusCode);
 }

@@ -19,8 +19,8 @@ export async function POST(request, props) {
     const command = new UpdateCommand({
         TableName: ddb_table_name,
         Key: {
-            company: company,
-            "email#transaction_id": email + "#" + transaction_id
+            PK: `COMPANY#${company}`,
+            SK: `EMAIL#${email}#TXID#${transaction_id}`
         },
         UpdateExpression: "SET extra_bags = :bags",
         ExpressionAttributeValues: {

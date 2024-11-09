@@ -18,14 +18,14 @@ export async function GET(request, props) {
         "TableName": "tinyflights_demo",
         "ScanIndexForward": true,
         "ConsistentRead": false,
-        "KeyConditionExpression": "#company = :company And begins_with(#email, :email)",
+        "KeyConditionExpression": "#PK = :PK And begins_with(#SK, :SK)",
         "ExpressionAttributeValues": {
-            ":company": company,
-            ":email": email
+            ":PK": "COMPANY#" + company,
+            ":SK": "EMAIL#" + email + "#"
         },
         "ExpressionAttributeNames": {
-            "#company": "company",
-            "#email": "email#transaction_id"
+            "#PK": "PK",
+            "#SK": "SK"
         }
     });
 

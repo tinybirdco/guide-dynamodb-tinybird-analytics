@@ -56,7 +56,7 @@ export function TransactionTable({ userId }) {
             <TableBody>
                 {
                     [...transactions.Items].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 9).map((transaction) => (
-                        <TableRow key={transaction['email#transaction_id']}>
+                        <TableRow key={transaction.transaction_id}>
                             <TableCell className="font-medium">{transaction.flight_from}</TableCell>
                             <TableCell className="font-medium">{transaction.flight_to}</TableCell>
                             <TableCell className="font-medium">{transaction.airline}</TableCell>
@@ -64,16 +64,16 @@ export function TransactionTable({ userId }) {
                             <TableCell>
                                 <EditBagsDialog
                                     currentBags={transaction.extra_bags}
-                                    transactionId={transaction['email#transaction_id'].split('#')[1]}
-                                    email={transaction['email#transaction_id'].split('#')[0]}
+                                    transactionId={transaction.transaction_id}
+                                    email={transaction.email}
                                     company={transaction.company}
                                     onEdit={getUserData}
                                 />
                             </TableCell>
                             <TableCell>
                                 <CancelTransactionButton
-                                    transactionId={transaction['email#transaction_id'].split('#')[1]}
-                                    email={transaction['email#transaction_id'].split('#')[0]}
+                                    transactionId={transaction.transaction_id}
+                                    email={transaction.email}
                                     company={transaction.company}
                                     onEdit={getUserData}
                                 ></CancelTransactionButton>

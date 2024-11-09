@@ -65,9 +65,13 @@ const airlineWeights = [
 export const fakeData = function (user_id?: number) {
     if (user_id) {
         const event_time = new Date().toISOString();
+        const transaction_id = faker.string.ulid({ refDate: event_time });
         return {
+            "PK": "COMPANY#" + users[user_id - 1].company,
+            "SK": "EMAIL#" + users[user_id - 1].email + "#TXID#" + transaction_id,
             "company": users[user_id - 1].company,
-            "email#transaction_id": users[user_id - 1].email + "#" + faker.string.ulid({ refDate: event_time }),
+            "email": users[user_id - 1].email,
+            "transaction_id": transaction_id,
             "name": users[user_id - 1].name,
             "timestamp": event_time,
             "age": users[user_id - 1].age,
@@ -77,13 +81,20 @@ export const fakeData = function (user_id?: number) {
             "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
             "priority_boarding": faker.datatype.boolean(),
             "meal_choice": users[user_id - 1].meal_choice,
-            "airline": faker.helpers.weightedArrayElement(airlineWeights)
+            "airline": faker.helpers.weightedArrayElement(airlineWeights),
+            "cost": faker.number.int({ min: 100, max: 1000 })
         }
     } else {
         const event_time = faker.date.recent({ days: 30 });
+        const company = faker.company.name();
+        const email = faker.internet.email();
+        const transaction_id = faker.string.ulid({ refDate: event_time });
         return {
-            "company": faker.company.name(),
-            "email#transaction_id": faker.internet.email() + "#" + faker.string.ulid({ refDate: event_time }),
+            "PK": "COMPANY#" + company,
+            "SK": "EMAIL#" + email + "#TXID#" + transaction_id,
+            "company": company,
+            "email": email,
+            "transaction_id": transaction_id,
             "timestamp": event_time,
             "name": faker.person.fullName(),
             "age": faker.number.int({ min: 18, max: 99 }),
@@ -93,7 +104,8 @@ export const fakeData = function (user_id?: number) {
             "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
             "priority_boarding": faker.datatype.boolean(),
             "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
-            "airline": faker.helpers.weightedArrayElement(airlineWeights)
+            "airline": faker.helpers.weightedArrayElement(airlineWeights),
+            "cost": faker.number.int({ min: 100, max: 1000 })
         }
     }
 }
