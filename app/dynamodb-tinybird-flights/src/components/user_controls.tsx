@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { User, users } from "@/lib/users";
 
 export default function UserControls({ user, onUserChanged }: { user: User, onUserChanged: (id: number) => void }) {

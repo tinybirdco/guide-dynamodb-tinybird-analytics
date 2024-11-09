@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import UserDashboard from "@/components/UserDashboard";
-import AdminDashboard from "@/components/AdminDashboard";
-import DemoControls from "@/components/DemoControls";
+import UserDashboard from "@/components/user_dashboard";
+import AdminDashboard from "@/components/admin_dashboard";
+import DemoControls from "@/components/demo_controls";
 import { User, users } from "@/lib/users";
 
 export default function Home() {

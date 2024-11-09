@@ -1,11 +1,11 @@
 "use client";
 
 import { User } from '@/lib/users';
-import { FlightCostOverTime } from './tinybird/FlightCostOverTime';
-import { Metric } from './Metric';
+import { FlightCostOverTime } from '@/components/tinybird/flight_cost_over_time';
+import { Metric } from '@/components/metric';
 import { useEffect, useState } from 'react';
-import { Card } from './ui/card';
-import { ChartTopTravellers } from './tinybird/TopTravellers';
+import { Card } from '@/components/ui/card';
+import { ChartTopTravellers } from './tinybird/top_travellers';
 
 const token = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_READ_TOKEN;
 

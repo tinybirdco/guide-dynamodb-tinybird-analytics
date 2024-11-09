@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function CancelTransactionButton({ transactionId, email, company, onEdit }: { transactionId: string, email: string, company: string, onEdit: () => void }) {
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { User } from "@/lib/Users";
-import { TransactionTable } from '@/components/TransactionTable';
+import { User } from "@/lib/users";
+import { TransactionTable } from '@/components/transaction_table';
 
 export default function UserDashboard({ user, tableKey }: { user: User, tableKey: number }) {
     return (

@@ -9,8 +9,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { EditBagsDialog } from './EditBagsDialog';
-import CancelTransactionButton from './CancelTransactionButton';
+import { EditBagsDialog } from '@/components/edit_bags_dialog';
+import CancelTransactionButton from '@/components/cancel_transaction_button';
 
 export function TransactionTable({ user }) {
 

@@ -1,6 +1,6 @@
-import DataControls from "./DataControls";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import UserControls from "./UserControls";
+import DataControls from "@/components/data_controls";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import UserControls from "@/components/user_controls";
 import { User } from "@/lib/users";
 
 export default function DemoControls({ user, callback }: { user: User, callback: (uid?: number) => void }) {

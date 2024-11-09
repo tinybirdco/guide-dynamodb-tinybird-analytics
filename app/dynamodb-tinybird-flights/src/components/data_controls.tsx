@@ -1,8 +1,8 @@
 "use client";
 
-import SendRandomItems from "@/components/SendRandomItems";
-import SendUserItem from '@/components/SendUserItem';
-import SendCompanyItem from '@/components/SendCompanyItem';
+import SendRandomItems from "@/components/send_random_items";
+import SendUserItem from '@/components/send_user_item';
+import SendCompanyItem from '@/components/send_company_item';
 import { User } from "@/lib/users";
 
 export default function DataControls({ user, onDataSent }: { user: User, onDataSent: () => void }) {
