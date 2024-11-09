@@ -1,6 +1,17 @@
 import { faker } from '@faker-js/faker';
 
-export const users = [
+
+export type User = {
+    passport_number: number;
+    name: string;
+    meal_choice: string;
+    age: number;
+    email: string;
+    role: string;
+    company: string;
+}
+
+export const users: User[] = [
     {
         passport_number: 9782364,
         name: "Gonzalo Gomez",
@@ -62,25 +73,25 @@ const airlineWeights = [
     { weight: 15, value: "Red Balloon" },
 ];
 
-export const fakeData = function (user_id?: number) {
-    if (user_id) {
+export const fakeData = function (user?: User) {
+    if (user) {
         const event_time = new Date().toISOString();
         const transaction_id = faker.string.ulid({ refDate: event_time });
         return {
-            "PK": "COMPANY#" + users[user_id - 1].company,
-            "SK": "EMAIL#" + users[user_id - 1].email + "#TXID#" + transaction_id,
-            "company": users[user_id - 1].company,
-            "email": users[user_id - 1].email,
+            "PK": "COMPANY#" + user.company,
+            "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
+            "company": user.company,
+            "email": user.email,
             "transaction_id": transaction_id,
-            "name": users[user_id - 1].name,
+            "name": user.name,
             "timestamp": event_time,
-            "age": users[user_id - 1].age,
-            "passport_number": users[user_id - 1].passport_number,
+            "age": user.age,
+            "passport_number": user.passport_number,
             "flight_from": faker.airline.airport().iataCode,
             "flight_to": faker.airline.airport().iataCode,
             "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
             "priority_boarding": faker.datatype.boolean(),
-            "meal_choice": users[user_id - 1].meal_choice,
+            "meal_choice": user.meal_choice,
             "airline": faker.helpers.weightedArrayElement(airlineWeights),
             "cost": faker.number.int({ min: 100, max: 1000 })
         }

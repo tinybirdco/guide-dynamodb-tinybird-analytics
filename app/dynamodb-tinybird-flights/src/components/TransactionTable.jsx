@@ -14,16 +14,12 @@ import {
 import { EditBagsDialog } from './EditBagsDialog';
 import CancelTransactionButton from './CancelTransactionButton';
 
-export function TransactionTable({ userId }) {
+export function TransactionTable({ user }) {
 
     const [transactions, setTransactions] = useState({ Items: [] });
 
-    const email = fakeData.users[userId - 1].email;
-    const company = fakeData.users[userId - 1].company;
-
-
     function getUserData() {
-        const response = fetch(`/api/flights/${company}/${email}`, {
+        const response = fetch(`/api/flights/${user.company}/${user.email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

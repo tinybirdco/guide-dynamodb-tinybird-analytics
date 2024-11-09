@@ -5,12 +5,12 @@ import * as fakeData from '@/lib/fakeData';
 import { useState } from "react";
 
 
-export default function SendUserItem({ userId, onUpdate }: { userId: number, onUpdate: () => void }) {
+export default function SendUserItem({ user, onUpdate }: { user: fakeData.User, onUpdate: () => void }) {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
 
-    function sendFakeData(userId: number) {
+    function sendFakeData(user: fakeData.User) {
         setLoading(true);
         setSuccess(false);
         const response = fetch('/api/flights', {
@@ -18,7 +18,7 @@ export default function SendUserItem({ userId, onUpdate }: { userId: number, onU
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(fakeData.fakeData(userId)),
+            body: JSON.stringify(fakeData.fakeData(user)),
         }).then((response) => {
             setLoading(false);
             setSuccess(true);
@@ -28,7 +28,7 @@ export default function SendUserItem({ userId, onUpdate }: { userId: number, onU
 
     return (
         <>
-            <Button disabled={loading || (userId > 3)} onClick={() => { sendFakeData(userId) }}>
+            <Button disabled={loading} onClick={() => { sendFakeData(user) }}>
                 {loading && <><Loader2 className="mr-2 h-4 w-4" />Sending...</>}
                 {success && <><CheckCheck className="mr-2 h-4 w-4" />Send more?</>}
                 {!loading && !success && <><SendHorizontal className="mr-2 h-4 w-4" />1 row from current user</>}

@@ -12,16 +12,24 @@ import UserControls from '@/components/UserControls';
 import { useState } from 'react';
 import DataControls from "@/components/DataControls";
 import UserDashboard from "@/components/UserDashboard";
-import AirlineDashboard from "@/components/AirlineDashboard";
+import { User } from "@/lib/fakeData";
+import { users } from "@/lib/fakeData";
+import AdminDashboard from "@/components/AdminDashboard";
 
 export default function Home() {
 
-  const [userId, setUserId] = useState<number>(1);
   const [tableKey, setTableKey] = useState<number>(0);
+  const [user, setUser] = useState<User>(users[0]);
 
-  function updateUserId(uid: number) {
-    setUserId(uid);
-    setTableKey(tableKey + 1);
+  function changeUser(uid?: number) {
+    if (uid !== undefined) {
+      setTableKey(tableKey + 1);
+      setUser(users[uid]);
+    } else {
+      // just a hack to force a re-render
+      setTableKey(tableKey + 1);
+      setUser(user);
+    }
   }
 
   return (
@@ -32,15 +40,15 @@ export default function Home() {
           <CardTitle>Demo controls</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <UserControls userId={userId} onClick={(uid) => updateUserId(uid)} />
-          <DataControls userId={userId} onUpdate={() => updateUserId(userId)} />
+          <UserControls user={user} onClick={(uid) => changeUser(uid)} />
+          <DataControls user={user} onUpdate={() => changeUser() /** hack to force a re-render */} />
         </CardContent>
       </Card>
       <div className="mt-4">
-        {userId <= 3 ?
-          <UserDashboard userId={userId} tableKey={tableKey} />
+        {user.role === "member" ?
+          <UserDashboard user={user} tableKey={tableKey} />
           :
-          <AirlineDashboard userId={userId} tableKey={tableKey} />
+          <AdminDashboard user={user} tableKey={tableKey} />
         }
       </div>
     </main>
