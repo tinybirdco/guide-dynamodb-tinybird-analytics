@@ -33,8 +33,6 @@ export async function DELETE(request, props) {
     const transaction_id = params.transaction_id
     const company = params.company
 
-    console.log(company, email, transaction_id);
-
     const command = new DeleteCommand({
         TableName: ddb_table_name,
         Key: {
@@ -43,9 +41,6 @@ export async function DELETE(request, props) {
         }
     });
 
-    console.log(command);
-
     const response = await docClient.send(command);
-    console.log(response.$metadata.httpStatusCode);
     return new Response(response.$metadata.httpStatusCode);
 }

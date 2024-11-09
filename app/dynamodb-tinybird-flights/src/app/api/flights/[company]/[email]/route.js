@@ -15,7 +15,7 @@ export async function GET(request, props) {
     const email = params.email;
 
     const command = new QueryCommand({
-        "TableName": "tinyflights_demo",
+        "TableName": ddb_table_name,
         "ScanIndexForward": true,
         "ConsistentRead": false,
         "KeyConditionExpression": "#PK = :PK And begins_with(#SK, :SK)",
@@ -33,7 +33,6 @@ export async function GET(request, props) {
         const response = await docClient.send(command);
         return new Response(JSON.stringify(response));
     } catch (error) {
-        console.log("TEST");
         console.error(error);
         return new Response(JSON.stringify(error), { status: 500 });
     }

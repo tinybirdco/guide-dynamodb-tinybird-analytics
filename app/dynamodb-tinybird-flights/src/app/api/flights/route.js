@@ -12,8 +12,6 @@ const docClient = DynamoDBDocumentClient.from(client);
 export async function PUT(request) {
     const item = await request.json();
 
-    console.log(ddb_table_name);
-
     const command = new PutCommand({
         TableName: ddb_table_name,
         Item: item,

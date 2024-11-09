@@ -31,7 +31,6 @@ export function TransactionTable({ userId }) {
         }).then(async (response) => {
             const data = await response.json();
             setTransactions(data);
-            console.log(data);
         });
     };
 
