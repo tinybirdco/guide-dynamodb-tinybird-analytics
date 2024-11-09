@@ -28,7 +28,15 @@ export async function PUT(request) {
         ...payload
     });
 
-    const response = await docClient.send(command);
-    return new Response(response.$metadata.httpStatusCode.toString());
-    // return new Response();
+    try {
+        const response = await docClient.send(command);
+        const statusCode = response.$metadata.httpStatusCode;
+        if (statusCode !== 200) {
+            return new Response('Error', { status: statusCode ?? 500 });
+        }
+        return new Response('Success', { status: statusCode });
+    } catch (error) {
+        console.error(error);
+        return new Response('Error', { status: 500 });
+    }
 }

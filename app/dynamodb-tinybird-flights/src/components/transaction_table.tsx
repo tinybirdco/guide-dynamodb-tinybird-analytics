@@ -11,10 +11,12 @@ import {
 } from "@/components/ui/table"
 import { EditBagsDialog } from '@/components/edit_bags_dialog';
 import CancelTransactionButton from '@/components/cancel_transaction_button';
+import { User } from '@/lib/users';
+import { Booking } from '@/lib/bookings';
 
-export function TransactionTable({ user }) {
+export function TransactionTable({ user }: { user: User }) {
 
-    const [transactions, setTransactions] = useState({ Items: [] });
+    const [transactions, setTransactions] = useState<Booking[]>([]);
 
     function getUserData() {
         const response = fetch(`/api/flights/${user.company}/${user.email}`, {
@@ -37,7 +39,6 @@ export function TransactionTable({ user }) {
             <TableCaption>Your flights</TableCaption>
             <TableHeader>
                 <TableRow>
-                    {/* <TableHead>ID</TableHead> */}
                     <TableHead>From</TableHead>
                     <TableHead>To</TableHead>
                     <TableHead>Airline</TableHead>
@@ -48,7 +49,7 @@ export function TransactionTable({ user }) {
             </TableHeader>
             <TableBody>
                 {
-                    [...transactions.Items].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 9).map((transaction) => (
+                    [...transactions].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).slice(0, 9).map((transaction) => (
                         <TableRow key={transaction.transaction_id}>
                             <TableCell className="font-medium">{transaction.flight_from}</TableCell>
                             <TableCell className="font-medium">{transaction.flight_to}</TableCell>

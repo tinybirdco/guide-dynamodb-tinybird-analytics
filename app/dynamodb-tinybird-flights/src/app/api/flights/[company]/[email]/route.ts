@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic'; // static by default, unless reading the request
 
+import { Booking } from "@/lib/bookings";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { QueryCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
@@ -9,7 +10,7 @@ const ddb_table_region = process.env.DDB_TABLE_REGION;
 const client = new DynamoDBClient({ region: ddb_table_region });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export async function GET(request, props) {
+export async function GET(request: Request, props: { params: { company: string, email: string } }) {
     const params = await props.params;
     const company = params.company;
     const email = params.email;
@@ -31,9 +32,15 @@ export async function GET(request, props) {
 
     try {
         const response = await docClient.send(command);
-        return new Response(JSON.stringify(response));
+        const statusCode = response.$metadata.httpStatusCode;
+        if (statusCode !== 200) {
+            return new Response('Error', { status: statusCode ?? 500 });
+        }
+        const items = response.Items ?? [];
+        console.log(items);
+        return new Response(JSON.stringify(items), { status: statusCode });
     } catch (error) {
         console.error(error);
-        return new Response(JSON.stringify(error), { status: 500 });
+        return new Response('Error', { status: 500 });
     }
 }

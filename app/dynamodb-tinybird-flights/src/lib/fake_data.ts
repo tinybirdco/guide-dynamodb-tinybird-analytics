@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { User, users } from './users';
+import { Booking } from './bookings';
 
 const bagWeights = [
     { weight: 45, value: 0 },
@@ -33,18 +34,18 @@ const airlineWeights = [
     { weight: 15, value: "Red Balloon" },
 ];
 
-export const fakeData = function () {
+export const fakeData = function (): Booking {
     const event_time = faker.date.recent({ days: 30 });
     const company = faker.company.name();
     const email = faker.internet.email();
     const transaction_id = faker.string.ulid({ refDate: event_time });
-    return {
+    const booking: Booking = {
         "PK": "COMPANY#" + company,
         "SK": "EMAIL#" + email + "#TXID#" + transaction_id,
         "company": company,
         "email": email,
         "transaction_id": transaction_id,
-        "timestamp": event_time,
+        "timestamp": event_time.toISOString(),
         "name": faker.person.fullName(),
         "age": faker.number.int({ min: 18, max: 99 }),
         "passport_number": faker.number.int({ min: 3456789, max: 9876543 }),
@@ -56,12 +57,13 @@ export const fakeData = function () {
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
         "cost": faker.number.int({ min: 100, max: 1000 })
     }
+    return booking;
 }
 
-export const fakeUserData = function (user: User) {
+export const fakeUserData = function (user: User): Booking {
     const event_time = new Date().toISOString();
     const transaction_id = faker.string.ulid({ refDate: event_time });
-    return {
+    const booking: Booking = {
         "PK": "COMPANY#" + user.company,
         "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
         "company": user.company,
@@ -79,9 +81,10 @@ export const fakeUserData = function (user: User) {
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
         "cost": faker.number.int({ min: 100, max: 1000 })
     }
+    return booking;
 }
 
-export const fakeCompanyData = function (now: boolean) {
+export const fakeCompanyData = function (now: boolean): Booking {
     let event_time: string;
     if (now) {
         event_time = new Date().toISOString();
@@ -90,7 +93,7 @@ export const fakeCompanyData = function (now: boolean) {
     }
     const transaction_id = faker.string.ulid({ refDate: event_time });
     const user = faker.helpers.arrayElement(users);
-    return {
+    const booking: Booking = {
         "PK": "COMPANY#" + user.company,
         "SK": "EMAIL#" + user.email + "#TXID#" + transaction_id,
         "company": user.company,
@@ -108,4 +111,5 @@ export const fakeCompanyData = function (now: boolean) {
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
         "cost": faker.number.int({ min: 100, max: 1000 })
     }
+    return booking;
 }

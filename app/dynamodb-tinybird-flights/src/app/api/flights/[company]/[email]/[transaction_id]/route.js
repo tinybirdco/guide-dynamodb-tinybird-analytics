@@ -23,8 +23,17 @@ export async function GET(request, props) {
         }
     });
 
-    const response = await docClient.send(command);
-    return new Response(JSON.stringify(response.Item));
+    try {
+        const response = await docClient.send(command);
+        const statusCode = response.$metadata.httpStatusCode;
+        if (statusCode !== 200) {
+            return new Response('Error', { status: statusCode ?? 500 });
+        }
+        return new Response(JSON.stringify(response.Item), { status: statusCode });
+    } catch (error) {
+        console.error(error);
+        return new Response('Error', { status: 500 });
+    }
 }
 
 export async function DELETE(request, props) {
@@ -41,6 +50,15 @@ export async function DELETE(request, props) {
         }
     });
 
-    const response = await docClient.send(command);
-    return new Response(response.$metadata.httpStatusCode);
+    try {
+        const response = await docClient.send(command);
+        const statusCode = response.$metadata.httpStatusCode;
+        if (statusCode !== 200) {
+            return new Response('Error', { status: statusCode ?? 500 });
+        }
+        return new Response('Success', { status: statusCode });
+    } catch (error) {
+        console.error(error);
+        return new Response('Error', { status: 500 });
+    }
 }
