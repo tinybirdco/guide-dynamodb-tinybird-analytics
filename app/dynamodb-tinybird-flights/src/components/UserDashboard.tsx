@@ -1,9 +1,9 @@
 "use client";
 
-import * as fakeData from '@/lib/fakeData';
+import { User } from "@/lib/Users";
 import { TransactionTable } from '@/components/TransactionTable';
 
-export default function UserDashboard({ user, tableKey }: { user: fakeData.User, tableKey: number }) {
+export default function UserDashboard({ user, tableKey }: { user: User, tableKey: number }) {
     return (
         <>
             <h2 className="text-xl mb-4">Your flights</h2>

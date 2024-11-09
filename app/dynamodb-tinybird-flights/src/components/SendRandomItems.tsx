@@ -1,7 +1,7 @@
 "use client";
 import { SendHorizontal, Loader2, CheckCheck } from "lucide-react";
 import { Button } from "./ui/button";
-import { fakeData } from '@/lib/fakeData';
+import { fakeData } from '@/lib/fake_data';
 import { useState } from "react";
 
 export default function SendRandomItems({ amount }: { amount: number }) {

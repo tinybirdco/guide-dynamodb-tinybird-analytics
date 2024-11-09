@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import * as fakeData from '@/lib/fakeData';
-import { Button } from '@/components/ui/button';
 
 import {
     Table,

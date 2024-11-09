@@ -1,11 +1,12 @@
 "use client";
+
 import { SendHorizontal, Loader2, CheckCheck } from "lucide-react";
 import { Button } from "./ui/button";
-import { fakeUserData, User } from '@/lib/fakeData';
+import { fakeUserData } from "@/lib/fake_data";
+import { User } from "@/lib/users";
 import { useState } from "react";
 
-
-export default function SendUserItem({ user, onUpdate }: { user: User, onUpdate: () => void }) {
+export default function SendUserItem({ user, onDataSent }: { user: User, onDataSent: () => void }) {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -22,7 +23,7 @@ export default function SendUserItem({ user, onUpdate }: { user: User, onUpdate:
         }).then((response) => {
             setLoading(false);
             setSuccess(true);
-            onUpdate();
+            onDataSent();
         });
     };
 

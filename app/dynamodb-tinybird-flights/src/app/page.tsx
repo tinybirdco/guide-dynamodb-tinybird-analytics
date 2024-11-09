@@ -1,20 +1,10 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
-
-import UserControls from '@/components/UserControls';
 import { useState } from 'react';
-import DataControls from "@/components/DataControls";
 import UserDashboard from "@/components/UserDashboard";
-import { User } from "@/lib/fakeData";
-import { users } from "@/lib/fakeData";
 import AdminDashboard from "@/components/AdminDashboard";
+import DemoControls from "@/components/DemoControls";
+import { User, users } from "@/lib/users";
 
 export default function Home() {
 
@@ -35,15 +25,7 @@ export default function Home() {
   return (
     <main className='w-3/4 mx-auto mt-4 pb-16'>
       <h1 className='text-2xl mb-8'>Tinybird + DynamoDB Flights Demo</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Demo controls</CardTitle>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          <UserControls user={user} onClick={(uid) => changeUser(uid)} />
-          <DataControls user={user} onUpdate={() => changeUser() /** hack to force a re-render */} />
-        </CardContent>
-      </Card>
+      <DemoControls user={user} callback={(uid) => changeUser(uid)} />
       <div className="mt-4">
         {user.role === "member" ?
           <UserDashboard user={user} tableKey={tableKey} />

@@ -1,6 +1,6 @@
 "use client";
 
-import * as fakeData from '@/lib/fakeData';
+import { User } from '@/lib/users';
 import { FlightCostOverTime } from './tinybird/FlightCostOverTime';
 import { Metric } from './Metric';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import { ChartTopTravellers } from './tinybird/TopTravellers';
 
 const token = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_READ_TOKEN;
 
-export default function AdminDashboard({ user, tableKey }: { user: fakeData.User, tableKey: number }) {
+export default function AdminDashboard({ user, tableKey }: { user: User, tableKey: number }) {
 
     const [totalFlights, setTotalFlights] = useState(0);
     const [flightCost, setFlightCost] = useState(0);
