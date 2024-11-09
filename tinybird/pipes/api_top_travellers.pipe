@@ -1,0 +1,19 @@
+TOKEN "api_top_travellers_endpoint_read_1888" READ
+
+NODE api_top_travellers_0
+SQL >
+
+    %
+    SELECT count() AS total, email AS traveller
+    FROM ddb_flights
+    WHERE
+        PK == concat(
+            'COMPANY#',
+            {{ String(company, 'Tinybird', description="The company to filter by", required=True) }}
+        )
+        AND toDate(timestamp) > toStartOfMonth(timestamp)
+    GROUP BY company, traveller
+    ORDER BY total DESC
+    LIMIT 5
+
+

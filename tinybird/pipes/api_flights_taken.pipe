@@ -1,0 +1,17 @@
+TOKEN "total_flights_taken_endpoint_read_8758" READ
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT count() AS total
+    FROM ddb_flights
+    WHERE
+        PK == concat(
+            'COMPANY#',
+            {{ String(company, 'Tinybird', description="The company to filter by", required=True) }}
+        )
+        AND toDate(timestamp) > toStartOfMonth(timestamp)
+    GROUP BY company
+
+
