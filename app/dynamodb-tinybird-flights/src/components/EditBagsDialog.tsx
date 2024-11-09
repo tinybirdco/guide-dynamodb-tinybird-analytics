@@ -12,12 +12,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 
-export function EditBagsDialog({ currentBags, transactionId, onEdit }: { currentBags: number, transactionId: string, onEdit: () => void }) {
+export function EditBagsDialog({ currentBags, transactionId, company, email, onEdit }: { currentBags: number, transactionId: string, company: string, email: string, onEdit: () => void }) {
 
     const [newBags, setNewBags] = useState(currentBags);
 
     const updateBags = () => {
-        const response = fetch('/api/flights/' + transactionId + '/bags', {
+        const response = fetch('/api/flights/' + company + '/' + email + '/' + transactionId + '/bags', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

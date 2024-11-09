@@ -11,12 +11,15 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export async function GET(request, props) {
     const params = await props.params;
+    const email = params.email
     const transaction_id = params.transaction_id
+    const company = params.company
 
     const command = new GetCommand({
         TableName: ddb_table_name,
         Key: {
-            transaction_id: transaction_id
+            company: company,
+            "email#transaction_id": email + "#" + transaction_id
         }
     });
 
@@ -26,12 +29,15 @@ export async function GET(request, props) {
 
 export async function DELETE(request, props) {
     const params = await props.params;
+    const email = params.email
     const transaction_id = params.transaction_id
+    const company = params.company
 
     const command = new DeleteCommand({
         TableName: ddb_table_name,
         Key: {
-            transaction_id: transaction_id
+            "email#transaction_id": email + "#" + transaction_id,
+            company: company,
         }
     });
 

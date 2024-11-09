@@ -6,31 +6,28 @@ export const users = [
         name: "Gonzalo Gomez",
         meal_choice: "none",
         age: 21,
-        email: "gonzalo@thisisafakeemail.com",
+        email: "gonzalo@tinybird.email",
+        role: "admin",
+        company: "Tinybird"
     },
     {
         passport_number: 9605645,
         name: "Dan Chaffelson",
         meal_choice: "vegetarian",
         age: 72,
-        email: "dan@thisisafakeemail.com",
+        email: "dan@tinybird.email",
+        role: "member",
+        company: "Tinybird"
     },
     {
         passport_number: 9234523,
         name: "Rafa Moreno",
         meal_choice: "halal",
         age: 34,
-        email: "rafa@thisisafakeemail.com",
-    },
-    {
-        name: 'BrianAir'
-    },
-    {
-        name: 'Ler Dingus'
-    },
-    {
-        name: 'Red Balloon'
-    },
+        email: "rafa@tinybird.email",
+        role: "member",
+        company: "Tinybird"
+    }
 ]
 
 const bagWeights = [
@@ -66,13 +63,13 @@ const airlineWeights = [
 ];
 
 export const fakeData = function (user_id?: number) {
-
     if (user_id) {
+        const event_time = new Date().toISOString();
         return {
-            "timestamp": new Date().toISOString(),
-            "transaction_id": faker.string.uuid(),
+            "company": users[user_id - 1].company,
+            "email#transaction_id": users[user_id - 1].email + "#" + faker.string.ulid({ refDate: event_time }),
             "name": users[user_id - 1].name,
-            "email": users[user_id - 1].email,
+            "timestamp": event_time,
             "age": users[user_id - 1].age,
             "passport_number": users[user_id - 1].passport_number,
             "flight_from": faker.airline.airport().iataCode,
@@ -82,20 +79,21 @@ export const fakeData = function (user_id?: number) {
             "meal_choice": users[user_id - 1].meal_choice,
             "airline": faker.helpers.weightedArrayElement(airlineWeights)
         }
-    }
-
-    return {
-        "timestamp": faker.date.recent({ days: 30 }),
-        "transaction_id": faker.string.uuid(),
-        "name": faker.person.fullName(),
-        "email": faker.internet.email(),
-        "age": faker.number.int({ min: 18, max: 99 }),
-        "passport_number": faker.number.int({ min: 3456789, max: 9876543 }),
-        "flight_from": faker.airline.airport().iataCode,
-        "flight_to": faker.airline.airport().iataCode,
-        "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
-        "priority_boarding": faker.datatype.boolean(),
-        "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
-        "airline": faker.helpers.weightedArrayElement(airlineWeights)
+    } else {
+        const event_time = faker.date.recent({ days: 30 });
+        return {
+            "company": faker.company.name(),
+            "email#transaction_id": faker.internet.email() + "#" + faker.string.ulid({ refDate: event_time }),
+            "timestamp": event_time,
+            "name": faker.person.fullName(),
+            "age": faker.number.int({ min: 18, max: 99 }),
+            "passport_number": faker.number.int({ min: 3456789, max: 9876543 }),
+            "flight_from": faker.airline.airport().iataCode,
+            "flight_to": faker.airline.airport().iataCode,
+            "extra_bags": faker.helpers.weightedArrayElement(bagWeights),
+            "priority_boarding": faker.datatype.boolean(),
+            "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
+            "airline": faker.helpers.weightedArrayElement(airlineWeights)
+        }
     }
 }

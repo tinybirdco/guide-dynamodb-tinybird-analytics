@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "./ui/button";
 
-export default function CancelTransactionButton({ transactionId, onEdit }: { transactionId: string, onEdit: () => void }) {
+export default function CancelTransactionButton({ transactionId, email, company, onEdit }: { transactionId: string, email: string, company: string, onEdit: () => void }) {
 
     function deleteTransaction() {
-        const response = fetch('/api/flights/' + transactionId, {
+        const response = fetch('/api/flights/' + company + '/' + email + '/' + transactionId, {
             method: 'DELETE',
         }).then(async (response) => {
             const result = await response.json();

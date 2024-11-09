@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import * as fakeData from '@/lib/fakeData';
 import { useState } from "react";
 
-export default function SendRandomItems() {
+export default function SendRandomItems({ amount }: { amount: number }) {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -14,7 +14,7 @@ export default function SendRandomItems() {
         setSuccess(false);
 
         var items = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < amount; i++) {
             items.push(fakeData.fakeData());
         }
 
@@ -33,9 +33,10 @@ export default function SendRandomItems() {
     return (
         <>
             <Button disabled={loading} onClick={() => { sendFakeData() }}>
-                {loading && <><Loader2 className="mr-2 h-4 w-4" />Sending...</>}
-                {success && <><CheckCheck className="mr-2 h-4 w-4" />Send another batch?</>}
-                {!loading && !success && <><SendHorizontal className="mr-2 h-4 w-4" />Send random batch</>}
+                {loading && <Loader2 className="mr-2 h-4 w-4" />}
+                {success && <CheckCheck className="mr-2 h-4 w-4" />}
+                {!loading && !success && <SendHorizontal className="mr-2 h-4 w-4" />}
+                {amount} rows from random users
             </Button>
         </>
     );

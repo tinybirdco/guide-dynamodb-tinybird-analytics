@@ -31,7 +31,7 @@ export default function SendUserItem({ userId, onUpdate }: { userId: number, onU
             <Button disabled={loading || (userId > 3)} onClick={() => { sendFakeData(userId) }}>
                 {loading && <><Loader2 className="mr-2 h-4 w-4" />Sending...</>}
                 {success && <><CheckCheck className="mr-2 h-4 w-4" />Send more?</>}
-                {!loading && !success && <><SendHorizontal className="mr-2 h-4 w-4" />Send data</>}
+                {!loading && !success && <><SendHorizontal className="mr-2 h-4 w-4" />1 row from current user</>}
             </Button>
         </>
     );

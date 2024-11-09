@@ -12,12 +12,15 @@ const docClient = DynamoDBDocumentClient.from(client);
 export async function POST(request, props) {
     const params = await props.params;
     const transaction_id = params.transaction_id
+    const company = params.company
+    const email = params.email
     const bags = await request.json();
 
     const command = new UpdateCommand({
         TableName: ddb_table_name,
         Key: {
-            transaction_id: transaction_id
+            company: company,
+            "email#transaction_id": email + "#" + transaction_id
         },
         UpdateExpression: "SET extra_bags = :bags",
         ExpressionAttributeValues: {

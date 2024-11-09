@@ -18,17 +18,20 @@ export function TransactionTable({ userId }) {
 
     const [transactions, setTransactions] = useState({ Items: [] });
 
-    const passport = fakeData.users[userId - 1].passport_number;
+    const email = fakeData.users[userId - 1].email;
+    const company = fakeData.users[userId - 1].company;
+
 
     function getUserData() {
-        const response = fetch('/api/flights', {
-            method: 'POST',
+        const response = fetch(`/api/flights/${company}/${email}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ passport_number: passport }),
         }).then(async (response) => {
-            setTransactions(await response.json())
+            const data = await response.json();
+            setTransactions(data);
+            console.log(data);
         });
     };
 
@@ -41,7 +44,7 @@ export function TransactionTable({ userId }) {
             <TableCaption>Your flights</TableCaption>
             <TableHeader>
                 <TableRow>
-                    <TableHead>ID</TableHead>
+                    {/* <TableHead>ID</TableHead> */}
                     <TableHead>From</TableHead>
                     <TableHead>To</TableHead>
                     <TableHead>Airline</TableHead>
@@ -53,8 +56,7 @@ export function TransactionTable({ userId }) {
             <TableBody>
                 {
                     [...transactions.Items].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 9).map((transaction) => (
-                        <TableRow key={transaction.transaction_id}>
-                            <TableCell className="font-medium">{transaction.transaction_id}</TableCell>
+                        <TableRow key={transaction['email#transaction_id']}>
                             <TableCell className="font-medium">{transaction.flight_from}</TableCell>
                             <TableCell className="font-medium">{transaction.flight_to}</TableCell>
                             <TableCell className="font-medium">{transaction.airline}</TableCell>
@@ -62,12 +64,19 @@ export function TransactionTable({ userId }) {
                             <TableCell>
                                 <EditBagsDialog
                                     currentBags={transaction.extra_bags}
-                                    transactionId={transaction.transaction_id}
+                                    transactionId={transaction['email#transaction_id'].split('#')[1]}
+                                    email={transaction['email#transaction_id'].split('#')[0]}
+                                    company={transaction.company}
                                     onEdit={getUserData}
                                 />
                             </TableCell>
                             <TableCell>
-                                <CancelTransactionButton transactionId={transaction.transaction_id} onEdit={getUserData}></CancelTransactionButton>
+                                <CancelTransactionButton
+                                    transactionId={transaction['email#transaction_id'].split('#')[1]}
+                                    email={transaction['email#transaction_id'].split('#')[0]}
+                                    company={transaction.company}
+                                    onEdit={getUserData}
+                                ></CancelTransactionButton>
                             </TableCell>
                         </TableRow>
                     ))
