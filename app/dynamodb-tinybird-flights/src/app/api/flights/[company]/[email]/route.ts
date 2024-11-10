@@ -10,10 +10,9 @@ const ddb_table_region = process.env.DDB_TABLE_REGION;
 const client = new DynamoDBClient({ region: ddb_table_region });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export async function GET(request: Request, props: { params: { company: string, email: string } }) {
-    const params = await props.params;
-    const company = params.company;
-    const email = params.email;
+export async function GET(request: Request, { params }: { params: Promise<{ company: string, email: string }> }) {
+    const company = (await params).company;
+    const email = (await params).email;
 
     const command = new QueryCommand({
         "TableName": ddb_table_name,
@@ -37,7 +36,6 @@ export async function GET(request: Request, props: { params: { company: string, 
             return new Response('Error', { status: statusCode ?? 500 });
         }
         const items = response.Items ?? [];
-        console.log(items);
         return new Response(JSON.stringify(items), { status: statusCode });
     } catch (error) {
         console.error(error);

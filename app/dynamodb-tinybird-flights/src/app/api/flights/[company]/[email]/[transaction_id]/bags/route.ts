@@ -9,11 +9,10 @@ const ddb_table_region = process.env.DDB_TABLE_REGION;
 const client = new DynamoDBClient({ region: ddb_table_region });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export async function POST(request: Request, props: { params: { company: string, email: string, transaction_id: string } }) {
-    const params = await props.params;
-    const transaction_id = params.transaction_id
-    const company = params.company
-    const email = params.email
+export async function POST(request: Request, { params }: { params: Promise<{ company: string, email: string, transaction_id: string }> }) {
+    const transaction_id = (await params).transaction_id
+    const company = (await params).company
+    const email = (await params).email
     const bags = await request.json();
 
     const command = new UpdateCommand({
