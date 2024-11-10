@@ -30,7 +30,7 @@ export default function Home() {
         {user.role === "member" ?
           <UserDashboard user={user} tableKey={tableKey} />
           :
-          <AdminDashboard user={user} tableKey={tableKey} />
+          <AdminDashboard user={user} />
         }
       </div>
     </main>
