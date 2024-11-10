@@ -35,11 +35,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ comp
     }
 }
 
-export async function DELETE(request: Request, props: { params: { company: string, email: string, transaction_id: string } }) {
-    const params = await props.params;
-    const email = params.email
-    const transaction_id = params.transaction_id
-    const company = params.company
+export async function DELETE(request: Request, { params }: { params: Promise<{ company: string, email: string, transaction_id: string }> }) {
+    const email = (await params).email
+    const transaction_id = (await params).transaction_id
+    const company = (await params).company
 
     const command = new DeleteCommand({
         TableName: ddb_table_name,
