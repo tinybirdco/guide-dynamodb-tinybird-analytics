@@ -12,7 +12,8 @@ export function ChartTopTravellers(params: {
             endpoint="https://api.eu-central-1.aws.tinybird.co/v0/pipes/api_top_travellers.json"
             token={token}
             index="traveller"
-            categories={['total']}
+            title="top travellers"
+            categories={['flights']}
             colorPalette={['#27F795', '#008060', '#0EB1B9', '#9263AF', '#5A6FC0', '#86BFDB', '#FFC145', '#FF6B6C', '#DC82C8', '#FFC0F1']}
             height="500px"
             params={params}

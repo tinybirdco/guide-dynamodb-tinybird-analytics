@@ -1,10 +1,12 @@
+TOKEN "dashboard_read_token" READ
+
 TOKEN "api_flight_cost_over_time_endpoint_read_4327" READ
 
 NODE endpoint
 SQL >
 
     %
-    SELECT sum(cost) AS total, toStartOfMonth(timestamp) AS month
+    SELECT sum(cost) AS "total cost", toStartOfMonth(timestamp) AS month
     FROM ddb_flights FINAL
     WHERE
         PK == concat(
