@@ -83,7 +83,7 @@ const FlightItem = ({
           </div>
         </div>
       </div>
-      <div className="w-[168px] flex items-center justify-center text-white text-[24px] font-semibold leading-normal bg-[#8D8F91] rounded-r-[6px]">
+      <div className="w-[168px] flex items-center justify-center text-white text-[24px] font-semibold leading-normal bg-[#8D8F91] rounded-r-[6px] group-hover:bg-[#2F80ED]">
         {price}€
       </div>
     </div>

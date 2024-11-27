@@ -1,8 +1,11 @@
+import { v4 as uuidv4 } from "uuid";
+
 export type Flight = {
   airline: string;
-  departureTime: string;
   arrivalTime: string;
+  departureTime: string;
   duration: string;
+  id: string;
   price: number;
 };
 
@@ -75,9 +78,10 @@ export function generateRandomFlights(count: number): Flight[] {
 
     return {
       airline: getRandomElement(airlines),
-      departureTime,
       arrivalTime,
+      departureTime,
       duration,
+      id: uuidv4(),
       price: Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice,
     };
   }

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
+import FlightsContext from "@/stores/flights";
+import { User, users } from "@/lib/users";
+import airports from "@/lib/airports.json";
 import UserDashboard from "@/components/user_dashboard";
 import AdminDashboard from "@/components/admin_dashboard";
 import DemoControls from "@/components/demo_controls";
-import { User, users } from "@/lib/users";
-import airports from "@/lib/airports.json";
 import Header from "@/components/header";
 import Container from "@/components/container";
 import {
@@ -27,18 +28,19 @@ import bgImage from "./assets/bg.png";
 
 export default function Home() {
   const router = useRouter();
+  const { resetFligths } = useContext(FlightsContext);
   const [tableKey, setTableKey] = useState<number>(0);
   const [user, setUser] = useState<User>(users[0]);
   const [departureAirport, setDepartureAirport] = useState<string>();
   const [arrivalAirport, setArrivalAirport] = useState<string>();
   const [departureDate, setDepartureDate] = useState<Date>();
-  const [returnDate, setReturnDate] = useState<Date>();
+  const [arrivalDate, setArrivalDate] = useState<Date>();
   const [passengers, setPassengers] = useState<string>();
   const isSearchEnabled =
     !!departureAirport &&
     !!arrivalAirport &&
     !!departureDate &&
-    !!returnDate &&
+    !!arrivalDate &&
     !!passengers;
 
   function changeUser(uid?: number) {
@@ -54,12 +56,13 @@ export default function Home() {
 
   const onSearch = () => {
     if (isSearchEnabled) {
+      resetFligths();
       const params = new URLSearchParams({
-        departureDate: format(departureDate, "dd/MM/yyyy"),
-        departureAirport,
-        passengers,
-        returnDate: format(returnDate, "dd/MM/yyyy"),
         arrivalAirport,
+        arrivalDate: format(arrivalDate, "dd/MM/yyyy"),
+        departureAirport,
+        departureDate: format(departureDate, "dd/MM/yyyy"),
+        passengers,
       });
 
       router.push(`/flights?${params.toString()}`);
@@ -208,8 +211,8 @@ export default function Home() {
                     />
                   </svg>
                   <div className="text-[#4F4F4F]  text-[14px] leading-[140%] tracking-[0.28px]">
-                    {returnDate
-                      ? format(returnDate, "dd/MM/yyyy")
+                    {arrivalDate
+                      ? format(arrivalDate, "dd/MM/yyyy")
                       : "Return date"}
                   </div>
                 </div>
@@ -217,8 +220,8 @@ export default function Home() {
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={returnDate}
-                  onSelect={setReturnDate}
+                  selected={arrivalDate}
+                  onSelect={setArrivalDate}
                   initialFocus
                 />
               </PopoverContent>
