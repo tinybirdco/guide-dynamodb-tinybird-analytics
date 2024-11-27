@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import UserDashboard from "@/components/user_dashboard";
 import AdminDashboard from "@/components/admin_dashboard";
@@ -25,13 +26,20 @@ import { Calendar } from "@/components/ui/calendar";
 import bgImage from "./assets/bg.png";
 
 export default function Home() {
+  const router = useRouter();
   const [tableKey, setTableKey] = useState<number>(0);
   const [user, setUser] = useState<User>(users[0]);
-  const [from, setFrom] = useState<string>();
-  const [to, setTo] = useState<string>();
+  const [departureAirport, setDepartureAirport] = useState<string>();
+  const [arrivalAirport, setArrivalAirport] = useState<string>();
   const [departureDate, setDepartureDate] = useState<Date>();
   const [returnDate, setReturnDate] = useState<Date>();
   const [passengers, setPassengers] = useState<string>();
+  const isSearchEnabled =
+    !!departureAirport &&
+    !!arrivalAirport &&
+    !!departureDate &&
+    !!returnDate &&
+    !!passengers;
 
   function changeUser(uid?: number) {
     if (uid !== undefined) {
@@ -43,6 +51,20 @@ export default function Home() {
       setUser(user);
     }
   }
+
+  const onSearch = () => {
+    if (isSearchEnabled) {
+      const params = new URLSearchParams({
+        departureDate: format(departureDate, "dd/MM/yyyy"),
+        departureAirport,
+        passengers,
+        returnDate: format(returnDate, "dd/MM/yyyy"),
+        arrivalAirport,
+      });
+
+      router.push(`/flights?${params.toString()}`);
+    }
+  };
 
   return (
     <>
@@ -73,7 +95,7 @@ export default function Home() {
             One simple search.
           </div>
           <div className="col-span-full flex gap-3 mt-8 p-2 bg-white rounded-[8px] shadow-[0_4px_37px_0_rgba(0,0,0,0.15)]">
-            <Select onValueChange={(value) => setFrom(value)}>
+            <Select onValueChange={(value) => setDepartureAirport(value)}>
               <SelectTrigger className="flex-1">
                 <div className="flex items-center gap-[10px] bg-[#F2F2F2] p-3 rounded">
                   <svg
@@ -90,7 +112,7 @@ export default function Home() {
                     />
                   </svg>
                   <div className="text-[#4F4F4F]  text-[14px] leading-[140%] tracking-[0.28px]">
-                    {from || "Origin"}
+                    {departureAirport || "Origin"}
                   </div>
                 </div>
               </SelectTrigger>
@@ -105,7 +127,7 @@ export default function Home() {
                 ))}
               </SelectContent>
             </Select>
-            <Select onValueChange={(value) => setTo(value)}>
+            <Select onValueChange={(value) => setArrivalAirport(value)}>
               <SelectTrigger className="flex-1">
                 <div className="flex items-center gap-[10px] bg-[#F2F2F2] p-3 rounded">
                   <svg
@@ -122,7 +144,7 @@ export default function Home() {
                     />
                   </svg>
                   <div className="text-[#4F4F4F]  text-[14px] leading-[140%] tracking-[0.28px]">
-                    {to || "Destination"}
+                    {arrivalAirport || "Destination"}
                   </div>
                 </div>
               </SelectTrigger>
@@ -233,7 +255,13 @@ export default function Home() {
                 <SelectItem value="5">5 passengers</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="flex-1 bg-[#2F80ED] h-full">Search</Button>
+            <Button
+              className="flex-1 bg-[#2F80ED] h-full"
+              disabled={!isSearchEnabled}
+              onClick={onSearch}
+            >
+              Search
+            </Button>
           </div>
         </Container>
       </div>

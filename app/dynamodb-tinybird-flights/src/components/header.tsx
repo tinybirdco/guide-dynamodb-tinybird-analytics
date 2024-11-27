@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -13,7 +14,7 @@ const Header = ({ className }: Props) => {
         className
       )}
     >
-      <div className="flex items-center gap-1">
+      <Link href="/" className="flex items-center gap-1">
         <svg
           width="25"
           height="24"
@@ -73,7 +74,7 @@ const Header = ({ className }: Props) => {
         <div className="text-[#1B1F2D] text-[18px] font-bold tracking-[0.36px]">
           Tinyflights
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
