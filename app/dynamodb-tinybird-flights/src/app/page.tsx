@@ -6,9 +6,9 @@ import { format } from "date-fns";
 import FlightsContext from "@/stores/flights";
 import { User, users } from "@/lib/users";
 import airports from "@/lib/airports.json";
-import UserDashboard from "@/components/user_dashboard";
-import AdminDashboard from "@/components/admin_dashboard";
-import DemoControls from "@/components/demo_controls";
+// import UserDashboard from "@/components/user_dashboard";
+// import AdminDashboard from "@/components/admin_dashboard";
+// import DemoControls from "@/components/demo_controls";
 import Header from "@/components/header";
 import Container from "@/components/container";
 import {
@@ -268,7 +268,7 @@ export default function Home() {
           </div>
         </Container>
       </div>
-      <main className="w-3/4 mx-auto mt-4 pb-16">
+      {/* <main className="w-3/4 mx-auto mt-4 pb-16">
         <h1 className="text-2xl mb-8">Tinybird + DynamoDB Flights Demo</h1>
         <DemoControls user={user} callback={(uid) => changeUser(uid)} />
         <div className="mt-4">
@@ -278,7 +278,7 @@ export default function Home() {
             <AdminDashboard user={user} />
           )}
         </div>
-      </main>
+      </main> */}
     </>
   );
 }
