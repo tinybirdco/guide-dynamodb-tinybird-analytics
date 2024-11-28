@@ -36,15 +36,19 @@ const FlightForm = ({ className, flight }: Props) => {
       items: [
         {
           ...data,
-          PK: "COMPANY#Tinybird",
-          SK: `EMAIL#${user.email}#TXID#${data.transaction_id}`,
           airline: flight.airline,
+          arrival_time: flight.arrivalTime,
+          company: user.company,
           cost: flight.price,
+          departure_time: flight.departureTime,
+          duration: flight.duration,
           email: user.email,
           flight_from: departureAirport,
           flight_to: arrivalAirport,
           name: `${user.name} ${user.surname}`,
           passport_number: passport,
+          PK: `COMPANY#${user.company}`,
+          SK: `EMAIL#${user.email}#TXID#${data.transaction_id}`,
         },
       ],
     };
@@ -212,7 +216,7 @@ const FlightForm = ({ className, flight }: Props) => {
           disabled={!isSubmitEnabled}
           onClick={onClickSubmit}
         >
-          Book fly
+          Book flight
         </Button>
       </div>
     </div>

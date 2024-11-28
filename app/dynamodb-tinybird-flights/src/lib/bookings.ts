@@ -1,18 +1,21 @@
 export type Booking = {
-    PK: string;
-    SK: string;
-    company: string;
-    email: string;
-    transaction_id: string;
-    timestamp: string;
-    name: string;
-    age: number;
-    passport_number: number;
-    flight_from: string;
-    flight_to: string;
-    extra_bags: number;
-    priority_boarding: boolean;
-    meal_choice: string;
-    airline: string;
-    cost: number;
-}
+  age: number;
+  airline: string;
+  arrival_time: string;
+  company: string;
+  cost: number;
+  departure_time: string;
+  duration: string;
+  email: string;
+  extra_bags: number;
+  flight_from: string;
+  flight_to: string;
+  meal_choice: string;
+  name: string;
+  passport_number: number;
+  PK: string;
+  priority_boarding: boolean;
+  SK: string;
+  timestamp: string;
+  transaction_id: string;
+};

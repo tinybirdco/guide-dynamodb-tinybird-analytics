@@ -14,11 +14,11 @@ export default function FlightSuccess() {
             className="flex justify-center items-center bg-white h-14 text-[#2F80ED] text-[20px] font-semibold leading-normal rounded-[6px] px-[18px]"
             href="/"
           >
-            Book another fly
+            Book another flight
           </Link>
           <Link
             className="flex justify-center items-center h-14 text-white text-[20px] font-semibold leading-normal border border-white rounded-[6px] px-[18px]"
-            href=""
+            href="/user/flights"
           >
             Manage flights
           </Link>

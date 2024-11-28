@@ -38,7 +38,7 @@ export default function FlightId() {
             duration={flight.duration}
             price={flight.price}
           />
-          <FlightForm className="mt-10" flight={flight} />
+          <FlightForm className="my-10" flight={flight} />
         </div>
       </Container>
     </div>

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "./ui/separator";
 
 type Props = {
+  actions?: React.ReactNode;
   airline: string;
   arrivalAirport: string;
   arrivalTime: string;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const FlightItem = ({
+  actions,
   airline,
   arrivalAirport,
   arrivalTime,
@@ -83,9 +85,11 @@ const FlightItem = ({
           </div>
         </div>
       </div>
-      <div className="w-[168px] flex items-center justify-center text-white text-[24px] font-semibold leading-normal bg-[#8D8F91] rounded-r-[6px] group-hover:bg-[#2F80ED]">
-        {price}€
-      </div>
+      {actions || (
+        <div className="w-[168px] flex items-center justify-center text-white text-[24px] font-semibold leading-normal bg-[#8D8F91] rounded-r-[6px] group-hover:bg-[#2F80ED]">
+          {price}€
+        </div>
+      )}
     </div>
   );
 };
