@@ -34,7 +34,6 @@ export default function UserFlights() {
   const renderActions = (transactionId: string) => {
     return (
       <div className="flex gap-2 items-center pr-6">
-        <Button>Edit</Button>
         <Button
           variant="destructive"
           onClick={() => onDeleteFlight(transactionId)}
