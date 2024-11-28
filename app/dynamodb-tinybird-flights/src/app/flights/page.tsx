@@ -27,7 +27,7 @@ export default function Flights() {
   return (
     <div className="h-screen">
       <Header className="sticky top-0 left-0 z-50" />
-      <Container className="h-full" classNameContent="pt-6">
+      <Container className="h-full" classNameContent="py-6">
         <FlightsSidebar
           className="col-span-3"
           flights={flights}

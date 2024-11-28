@@ -17,7 +17,7 @@ export default function Admin() {
   return (
     <div className="h-screen">
       <Header className="sticky top-0 left-0 z-50" />
-      <Container className="h-full" classNameContent="pt-6">
+      <Container className="h-full" classNameContent="py-6">
         <div className="col-span-full">
           <AdminDashboard user={user} />
         </div>
