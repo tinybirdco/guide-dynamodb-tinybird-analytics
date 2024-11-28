@@ -15,6 +15,7 @@ import {
 } from "./ui/dialog";
 import UserControls from "./user_controls";
 import DataControls from "./data_controls";
+import Image from "next/image";
 
 type Props = {
   className?: string;
@@ -110,6 +111,7 @@ const Header = ({ className }: Props) => {
             </div>
           </DialogContent>
         </Dialog>
+        <Image alt="" className="rounded-full w-10 h-10" src={user.avatar} />
       </div>
     </div>
   );

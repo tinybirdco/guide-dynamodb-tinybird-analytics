@@ -1,3 +1,8 @@
+import { StaticImageData } from "next/image";
+import avatar1Image from "./assets/avatar_1.jpg";
+import avatar2Image from "./assets/avatar_2.jpg";
+import avatar3Image from "./assets/avatar_3.jpg";
+
 export type User = {
   passport_number: number;
   name: string;
@@ -7,6 +12,7 @@ export type User = {
   email: string;
   role: string;
   company: string;
+  avatar: StaticImageData;
 };
 
 export const users: User[] = [
@@ -19,6 +25,7 @@ export const users: User[] = [
     email: "dan@tinybird.email",
     role: "member",
     company: "Tinybird",
+    avatar: avatar1Image,
   },
   {
     passport_number: 9234523,
@@ -29,6 +36,7 @@ export const users: User[] = [
     email: "rafa@tinybird.email",
     role: "member",
     company: "Tinybird",
+    avatar: avatar2Image,
   },
   {
     passport_number: 9782364,
@@ -39,5 +47,6 @@ export const users: User[] = [
     email: "gonzalo@tinybird.email",
     role: "admin",
     company: "Tinybird",
+    avatar: avatar3Image,
   },
 ];
