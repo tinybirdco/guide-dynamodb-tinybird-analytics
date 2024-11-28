@@ -46,7 +46,7 @@ export default function UserFlights() {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [user.email]);
 
   return (
     <div className="h-screen">
@@ -56,19 +56,21 @@ export default function UserFlights() {
           <div className="text-[#474849] text-[20px] font-semibold leading-normal mb-6">
             My flights
           </div>
-          {transactions.map((item) => (
-            <FlightItem
-              actions={renderActions(item.transaction_id)}
-              airline={item.airline}
-              arrivalAirport={item.flight_to}
-              arrivalTime={item.arrival_time}
-              departureAirport={item.flight_from}
-              departureTime={item.departure_time}
-              duration={item.duration}
-              key={`${item.airline}-${item.cost}`}
-              price={item.cost}
-            />
-          ))}
+          <div className="flex flex-col gap-4">
+            {transactions.map((item) => (
+              <FlightItem
+                actions={renderActions(item.transaction_id)}
+                airline={item.airline}
+                arrivalAirport={item.flight_to}
+                arrivalTime={item.arrival_time}
+                departureAirport={item.flight_from}
+                departureTime={item.departure_time}
+                duration={item.duration}
+                key={item.transaction_id}
+                price={item.cost}
+              />
+            ))}
+          </div>
         </div>
       </Container>
     </div>
