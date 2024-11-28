@@ -1,12 +1,28 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { users } from "@/lib/users";
+import UserContext from "@/stores/user";
+import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import UserControls from "./user_controls";
+import DataControls from "./data_controls";
 
 type Props = {
   className?: string;
 };
 
 const Header = ({ className }: Props) => {
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <div
       className={cn(
@@ -75,6 +91,26 @@ const Header = ({ className }: Props) => {
           Tinyflights
         </div>
       </Link>
+      <div className="flex gap-3 items-center">
+        {user.role === "admin" && <Link href="/admin">Admin dashboard</Link>}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Demo controls</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Demo controls</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col gap-8">
+              <UserControls
+                user={user}
+                onUserChanged={(uid) => setUser(users[uid])}
+              />
+              <DataControls user={user} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
