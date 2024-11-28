@@ -7,7 +7,6 @@ import Container from "@/components/container";
 import FlightItem from "@/components/flight_item";
 import FlightsSidebar from "@/components/flights_sidebar";
 import Header from "@/components/header";
-import FlightOptions from "@/components/flight_options";
 import FlightForm from "@/components/flight_form";
 
 export default function FlightId() {
@@ -39,8 +38,7 @@ export default function FlightId() {
             duration={flight.duration}
             price={flight.price}
           />
-          <FlightOptions className="mt-10" />
-          <FlightForm className="mt-8" />
+          <FlightForm className="mt-10" flight={flight} />
         </div>
       </Container>
     </div>
