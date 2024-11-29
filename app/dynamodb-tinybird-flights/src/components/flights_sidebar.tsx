@@ -40,7 +40,7 @@ const FlightsSidebar = ({ className, flights, isLoading }: Props) => {
         <CollapsibleTrigger className="w-full">
           <div className="flex items-center justify-between">
             <div className="text-[#434345] text-[20px] font-semibold">
-              Scales
+              Stops
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ const FlightsSidebar = ({ className, flights, isLoading }: Props) => {
         <CollapsibleTrigger className="w-full">
           <div className="flex items-center justify-between">
             <div className="text-[#434345] text-[20px] font-semibold">
-              Departure Time
+              Times
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
