@@ -93,7 +93,7 @@ export default function Home() {
             </div>
           </div>
           <div className="col-span-full text-white text-[64px] font-bold leading-[64px] mt-6">
-            Don't have your own wings? 🕊️
+            Don&apos;t have your own wings? 🕊️
           </div>
           <div className="col-span-full text-white text-[64px] font-bold leading-[64px] mt-6">
             No problem.
