@@ -68,7 +68,7 @@ const FlightsSidebar = ({ className, flights, isLoading }: Props) => {
                   htmlFor="check1"
                   className="text-[#67696B] text-[11.6px] font-semibold leading-normal mt-px"
                 >
-                  Straight
+                  Direct
                 </label>
                 <p className="text-[#8C9299] text-[14.1px] leading-normal font-semibold">
                   from {lessPrice}€

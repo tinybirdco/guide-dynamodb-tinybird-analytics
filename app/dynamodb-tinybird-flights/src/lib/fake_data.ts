@@ -60,7 +60,9 @@ export const fakeData = function (now: boolean): Booking {
         "priority_boarding": faker.datatype.boolean(),
         "meal_choice": faker.helpers.weightedArrayElement(mealWeights),
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
-        "cost": faker.number.int({ min: 100, max: 1000 })
+        "cost": faker.number.int({ min: 100, max: 1000 }),
+        "phone_number": faker.phone.number(),
+        ...randomFlightTimes()
     }
     return booking;
 }
@@ -89,7 +91,9 @@ export const fakeUserData = function (user: User, now: boolean): Booking {
         "priority_boarding": faker.datatype.boolean(),
         "meal_choice": user.meal_choice,
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
-        "cost": faker.number.int({ min: 100, max: 1000 })
+        "cost": faker.number.int({ min: 100, max: 1000 }),
+        "phone_number": user.phone_number,
+        ...randomFlightTimes()
     }
     return booking;
 }
@@ -119,7 +123,35 @@ export const fakeCompanyData = function (now: boolean): Booking {
         "priority_boarding": faker.datatype.boolean(),
         "meal_choice": user.meal_choice,
         "airline": faker.helpers.weightedArrayElement(airlineWeights),
-        "cost": faker.number.int({ min: 100, max: 1000 })
+        "cost": faker.number.int({ min: 100, max: 1000 }),
+        "phone_number": user.phone_number,
+        ...randomFlightTimes()
     }
     return booking;
+}
+
+function randomFlightTimes() {
+    const departure = faker.date.soon();
+    const arrival = faker.date.soon({ days: 1, refDate: departure });
+    return {
+        departure_time: formatTime(departure),
+        arrival_time: formatTime(arrival),
+        duration: calculateDuration(departure, arrival)
+    }
+}
+
+function calculateDuration(departure: Date, arrival: Date): string {
+    const duration = arrival.getTime() - departure.getTime();
+    const durationHours = Math.floor(duration / (1000 * 60 * 60));
+    const durationMinutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${durationHours}h ${durationMinutes}min`;
+}
+
+function formatTime(time: Date): string {
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    return `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`;
 }

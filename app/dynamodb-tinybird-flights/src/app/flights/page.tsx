@@ -20,7 +20,7 @@ export default function Flights() {
     if (!flights.length) {
       setTimeout(() => {
         fetchFligths(departureAirport, arrivalAirport);
-      }, 2000);
+      }, 500);
     }
   }, []);
 

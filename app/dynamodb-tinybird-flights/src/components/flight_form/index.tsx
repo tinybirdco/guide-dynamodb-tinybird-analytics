@@ -26,9 +26,6 @@ const FlightForm = ({ className, flight }: Props) => {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const { arrivalAirport, departureAirport } = useContext(FlightsContext);
-  const [passport, setPassport] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const isSubmitEnabled = !!passport && !!mobileNumber;
 
   const onClickSubmit = async () => {
     const data = fakeData(true);
@@ -46,7 +43,8 @@ const FlightForm = ({ className, flight }: Props) => {
           flight_from: departureAirport,
           flight_to: arrivalAirport,
           name: `${user.name} ${user.surname}`,
-          passport_number: passport,
+          passport_number: user.passport_number,
+          phone_number: user.phone_number,
           PK: `COMPANY#${user.company}`,
           SK: `EMAIL#${user.email}#TXID#${data.transaction_id}`,
         },
@@ -150,7 +148,8 @@ const FlightForm = ({ className, flight }: Props) => {
                 className="bg-[#F2F2F2] border-[#F2F2F2] rounded h-[44px]"
                 type="text"
                 id="passport"
-                onChange={(value) => setPassport(value.target.value)}
+                disabled
+                value={user.passport_number}
               />
             </div>
           </div>
@@ -199,7 +198,8 @@ const FlightForm = ({ className, flight }: Props) => {
                   className="flex-1 bg-[#F2F2F2] border-[#F2F2F2] rounded h-[44px]"
                   type="text"
                   id="number"
-                  onChange={(value) => setMobileNumber(value.target.value)}
+                  disabled
+                  value={user.phone_number}
                 />
               </div>
             </div>
@@ -213,7 +213,6 @@ const FlightForm = ({ className, flight }: Props) => {
         </div>
         <Button
           className="mt-6 w-full"
-          disabled={!isSubmitEnabled}
           onClick={onClickSubmit}
         >
           Book flight

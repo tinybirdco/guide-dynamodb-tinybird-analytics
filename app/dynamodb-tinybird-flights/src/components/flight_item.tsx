@@ -47,7 +47,7 @@ const FlightItem = ({
               </div>
               <Separator />
               <div className="text-[#72A3E3] text-[12px] font-semibold leading-normal">
-                Straight
+                Direct
               </div>
             </div>
             <svg

@@ -13,6 +13,7 @@ export type User = {
   role: string;
   company: string;
   avatar: StaticImageData;
+  phone_number: string;
 };
 
 export const users: User[] = [
@@ -26,6 +27,7 @@ export const users: User[] = [
     role: "member",
     company: "Tinybird",
     avatar: avatar1Image,
+    phone_number: "100000000000",
   },
   {
     passport_number: 9234523,
@@ -37,6 +39,7 @@ export const users: User[] = [
     role: "member",
     company: "Tinybird",
     avatar: avatar2Image,
+    phone_number: "200000000000",
   },
   {
     passport_number: 9782364,
@@ -48,5 +51,6 @@ export const users: User[] = [
     role: "admin",
     company: "Tinybird",
     avatar: avatar3Image,
+    phone_number: "300000000000",
   },
 ];
