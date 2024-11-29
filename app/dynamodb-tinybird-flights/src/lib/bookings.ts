@@ -1,0 +1,22 @@
+export type Booking = {
+  PK: string;
+  SK: string;
+  timestamp: string;
+  transaction_id: string;
+  company: string;
+  email: string;
+  name: string;
+  age: number;
+  passport_number: number;
+  phone_number: string;
+  airline: string;
+  cost: number;
+  arrival_time: string;
+  departure_time: string;
+  duration: string;
+  flight_from: string;
+  flight_to: string;
+  extra_bags: number;
+  meal_choice: string;
+  priority_boarding: boolean;
+};

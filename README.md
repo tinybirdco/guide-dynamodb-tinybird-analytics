@@ -36,7 +36,7 @@ The demo uses Vercel and Next.js.
 
 Vercel Serverless Functions are used for the backend APIs that interact with DynamoDB. To ensure that the DynamoDB calls work properly, you should use the Vercel CLI and `vercel dev` to run the app locally.
 
-Tinybird APIs are called directly from the browser. 
+Tinybird APIs are called directly from the browser.
 
 1. [Install the Vercel CLI](https://vercel.com/docs/cli)
 2. Go to the `app/dynamodb-tinybird-flights` dir of this repo

@@ -1,0 +1,17 @@
+TOKEN "flight_cost_endpoint_read_4285" READ
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT sum(cost) AS total
+    FROM ddb_flights FINAL
+    WHERE
+        PK == concat(
+            'COMPANY#',
+            {{ String(company, 'Tinybird', description="The company to filter by", required=True) }}
+        )
+        AND toDate(timestamp) > toStartOfMonth(timestamp)
+    GROUP BY company
+
+
