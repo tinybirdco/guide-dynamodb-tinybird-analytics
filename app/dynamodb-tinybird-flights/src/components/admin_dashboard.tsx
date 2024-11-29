@@ -92,7 +92,7 @@ export default function AdminDashboard({ user }: { user: User }) {
 
   return (
     <>
-      <div className="text-[#474849] text-[20px] font-semibold leading-normal mb-7">{`Let's see how ${company} been travelling`}</div>
+      <div className="text-[#474849] text-[20px] font-semibold leading-normal mb-7">{`Let's see how ${company} has been travelling`}</div>
       <div className="flex gap-3 mb-4">
         <Metric
           title="Total flights"
