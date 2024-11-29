@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import FlightsContext from "@/stores/flights";
@@ -10,7 +10,7 @@ import FlightsSidebar from "@/components/flights_sidebar";
 import Header from "@/components/header";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Flights() {
+function FlightsContent() {
   const { fetchFligths, flights, isLoading } = useContext(FlightsContext);
   const searchParams = useSearchParams();
   const arrivalAirport = searchParams.get("arrivalAirport") as string;
@@ -52,15 +52,23 @@ export default function Flights() {
                 />
               </Link>
             ))}
-          {isLoading &&
-            Array.from(new Array(10)).map((_, index) => (
-              <Skeleton
-                key={`flights-skeleton-${index}`}
-                className="w-full h-[87px] rounded-[6px]"
-              />
-            ))}
+          {isLoading && (
+            <>
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+            </>
+          )}
         </div>
       </Container>
     </div>
+  );
+}
+
+export default function Flights() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FlightsContent />
+    </Suspense>
   );
 }
