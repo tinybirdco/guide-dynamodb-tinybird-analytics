@@ -82,7 +82,7 @@ export default function Home() {
           }}
         >
           <div className="col-span-full flex gap-2">
-            <div className="flex items-center py-2 px-4 bg-[rgba(82,82,82,0.10)] border border-white rounded-[94px] text-white text-[15px] leading-5 tracking-[0.3px]">
+            <div className="flex items-center py-2 px-4 bg-white border border-black rounded-[94px] text-black text-[15px] leading-5 tracking-[0.3px]">
               Flights
             </div>
             <div className="flex items-center py-2 px-4 bg-[rgba(82,82,82,0.10)] border border-white rounded-[94px] text-white text-[15px] leading-5 tracking-[0.3px]">
@@ -93,9 +93,10 @@ export default function Home() {
             </div>
           </div>
           <div className="col-span-full text-white text-[64px] font-bold leading-[64px] mt-6">
-            Millions of cheap flights.
-            <br />
-            One simple search.
+            Don't have your own wings? 🕊️
+          </div>
+          <div className="col-span-full text-white text-[64px] font-bold leading-[64px] mt-6">
+            No problem.
           </div>
           <div className="col-span-full flex gap-3 mt-8 p-2 bg-white rounded-[8px] shadow-[0_4px_37px_0_rgba(0,0,0,0.15)]">
             <Select onValueChange={(value) => setDepartureAirport(value)}>
@@ -181,7 +182,7 @@ export default function Home() {
                   <div className="text-[#4F4F4F]  text-[14px] leading-[140%] tracking-[0.28px]">
                     {departureDate
                       ? format(departureDate, "dd/MM/yyyy")
-                      : "Departure date"}
+                      : "Departure"}
                   </div>
                 </div>
               </PopoverTrigger>
@@ -213,7 +214,7 @@ export default function Home() {
                   <div className="text-[#4F4F4F]  text-[14px] leading-[140%] tracking-[0.28px]">
                     {arrivalDate
                       ? format(arrivalDate, "dd/MM/yyyy")
-                      : "Return date"}
+                      : "Return"}
                   </div>
                 </div>
               </PopoverTrigger>
